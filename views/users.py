@@ -15,16 +15,15 @@ class UsersView(Resource):
         rs = db.session.query(User).all()
         res = UserSchema(many=True).dump(rs)
         return res, 200
-    
+
     def post(self):
         req_json = request.json
         ent = User(**req_json)
+        ent.password = hashlib.md5(ent.password.encode('utf-8')).hexdigest()
         db.session.add(ent)
         db.session.commit()
         return "", 201
-        
-    def get_hash(self):
-        return hashlib.md5(self.password.encode('utf-8')).hexdigest()
+   
       
 
 @user_ns.route('/<int:uid>')
