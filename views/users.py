@@ -1,4 +1,6 @@
 import hashlib
+import json
+
 from flask import request
 from flask_restx import Resource, Namespace
 from models.models import User, UserSchema
@@ -23,7 +25,7 @@ class UsersView(Resource):
         
     def get_hash(self):
         return hashlib.md5(self.password.encode('utf-8')).hexdigest()
-  
+      
 
 @user_ns.route('/<int:uid>')
 class UserView(Resource):
