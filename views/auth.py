@@ -1,8 +1,6 @@
-import base64
 import hashlib
-import hmac
-from calendar import calendar
-from datetime import datetime
+import calendar
+import datetime
 import jwt
 from flask import request, abort
 from flask_restx import Resource, Namespace
@@ -32,7 +30,7 @@ class AuthView(Resource):
 
         password_hash = hashlib.md5(password.encode('utf-8')).hexdigest()
 
-        if password_hash != User.password:
+        if password_hash != user.password:
             return {"error": "Проверьте пароль!"}, 401
 
         data = {

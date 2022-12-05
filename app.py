@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_restx import Api
-
 from config import Config
 from models.models import User
 from setup_db import db
