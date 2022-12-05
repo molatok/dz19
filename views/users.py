@@ -22,6 +22,15 @@ class UsersView(Resource):
         db.session.add(ent)
         db.session.commit()
         return "", 201
+        
+    def get_hash(self):
+        return hashlib.md5(self.password.encode('utf-8')).hexdigest()
+    
+    def create(self, data):
+        password_now = self.get_hash(data['password'])
+        user = db.session.query(User).get(data['username'])
+        user.password = password_now
+        return self.create(data)
     
 
 @user_ns.route('/<int:uid>')

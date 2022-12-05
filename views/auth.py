@@ -38,6 +38,7 @@ class AuthView(Resource):
             "role": user.role,
             "password": user.password
         }
+        
         min30 = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
         data["exp"] = calendar.timegm(min30.timetuple())
         access_token = jwt.encode(data, secret, algorithm=algo)
